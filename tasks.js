@@ -36,7 +36,7 @@ console.log(getUsersWithGender(users, "male")); // [ 'Moore Hensley', 'Ross Vazq
 // START TASK - 4;
 
 const getInactiveUsers = users => {
-  return users.filter(user => !user.isActive).map(user => user.name);
+  return users.filter(user => !user.isActive);
 };
 
 console.log(getInactiveUsers(users)); // [объект Moore Hensley, объект Ross Vazquez, объект Blackburn Dotson]
@@ -93,8 +93,9 @@ console.log(getUsersWithFriend(users, "Goldie Gentry")); // [ 'Elma Head', 'Sher
 // START TASK - 9;
 
 const getNamesSortedByFriendsCount = users => {
-  return users.sort((a, b) => a.friends.length - b.friends.length)
-  .map(user => user.name);
+  return users
+    .sort((a, b) => a.friends.length - b.friends.length)
+    .map(user => user.name);
 };
 
 console.log(getNamesSortedByFriendsCount(users));
@@ -104,11 +105,16 @@ console.log(getNamesSortedByFriendsCount(users));
 
 // START TASK - 10;
 
-const getSortedUniqueSkills = users => {};
+const getSortedUniqueSkills = users =>
+  users.reduce((allSkills, skill) => {
+    allSkills.push(...skill.skills);
+
+    return allSkills.sort().reduce((uniq, item) => {
+      return uniq.includes(item) ? uniq : [...uniq, item];
+    }, []);
+  }, []);
 
 console.log(getSortedUniqueSkills(users));
 // [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
 
 // END TASK - 10;
-
-
